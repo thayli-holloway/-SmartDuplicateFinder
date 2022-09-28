@@ -14,8 +14,14 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Left Side</TextBlock>
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Path=Drives}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text ="{Binding Path=Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">Right Side</TextBlock>
     </Grid>
 </UserControl>
