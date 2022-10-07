@@ -19,7 +19,7 @@ public partial class FindDuplicatesView : UserControl
 
 		Drives = new ObservableCollection<DriveViewModel>();
 
-		var drives = DriveInfo.GetDrives().Where(d => d.IsReady).Select(d => new DriveViewModel(d));
+		IEnumerable<DriveViewModel> drives = DriveInfo.GetDrives().Where(d => d.IsReady).Select(d => new DriveViewModel(d));
 		foreach(DriveViewModel driver in drives)
 		{
 			Drives.Add(driver);

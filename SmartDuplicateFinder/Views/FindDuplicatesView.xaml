@@ -4,20 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartDuplicateFinder.Views"
+             xmlns:converters="clr-namespace:SmartDuplicateFinder.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=local:FindDuplicatesView, IsDesignTimeCreatable=True}"
              >
-    <Grid>
+    <UserControl.Resources>
+        <!--<converters:LoadIcon x:Key="_loadIcon" />-->
+        <converters:GetIcon x:Key="_getIcon"/>
+    </UserControl.Resources>
+        
+        <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="auto" MinWidth="130" MaxWidth="300"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" ItemsSource="{Binding Path=Drives}">
+        <ListBox Grid.Column="0" ItemsSource="{Binding Path=Drives}"
+                 HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text ="{Binding Path=Name}"/>
+                    <CheckBox
+                        VerticalAlignment="Center"
+                        IsEnabled="{Binding Path=IsSelectable}"
+                        IsChecked="{Binding Path=IsSelected}">
+                        <CheckBox.Content>
+                            <DockPanel>
+                                <Image DockPanel.Dock="Left" VerticalAlignment="Center" Source="{Binding Icon, Converter={StaticResource _getIcon}}"/>
+                                <Label DockPanel.Dock="Left" VerticalAlignment="Center" Content="{Binding Path=DisplayName}"/>
+                            </DockPanel>
+                        </CheckBox.Content>
+                    </CheckBox>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
